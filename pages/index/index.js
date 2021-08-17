@@ -1,48 +1,61 @@
-// index.js
-// 获取应用实例
-const app = getApp()
+// 0 引入用来发送请求发方法
+import { request } from "../../request/index.js"
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
+    // 轮播图
+    swiperList: [],
+    // 导航数组
+    catesList: [],
+    // 楼层数据
+    floorList: []
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+
+  // 页面开始加载就会触发
   onLoad() {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-    }
+    // 1 发送异步请求 
+    // 优化的手段可以通过es6的promise来解决(问题：异步地域,请求成功或者失败后请求其他接口,里面再请求其他接口,那么整个代码很复杂
+    // wx.request({
+    //   url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata',
+    //   success: (res) => {
+    //     console.log(res.data)
+    //     this.setData({
+    //       swiperList:res.data.message
+    //     })
+    //   }
+    // })
+    this.getSwiperList();
+    this.getCatesList();
+    this.getFloorList();
+    
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
+
+  // 获取轮播图数据
+  getSwiperList(){
+    request({url:"https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata"})
+    .then(res=>{
+      this.setData({
+        swiperList:res.data.message
+      })
     })
   },
-  getUserInfo(e) {
-    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-    console.log(e)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+  // 获取导航数组
+  getCatesList(){
+    request({url:"https://api-hmugo-web.itheima.net/api/public/v1/home/catitems"})
+    .then(res=>{
+      this.setData({
+        catesList:res.data.message
+      })
+    })
+  },
+  // 获取楼层数据
+  getFloorList(){
+    request({url:"https://api-hmugo-web.itheima.net/api/public/v1/home/floordata"})
+    .then(res=>{
+      this.setData({
+        floorList:res.data.message
+      })
     })
   }
+
 })

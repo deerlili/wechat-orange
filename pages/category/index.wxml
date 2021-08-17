@@ -1,2 +1,15 @@
 <!--pages/category/index.wxml-->
-<text>pages/category/index.wxml</text>
+<view class="cates">
+    <search></search>
+
+    <view class="cates_container">
+        <!-- 左侧菜单 -->
+        <scroll-view class="left_menu">
+            <view>1</view>
+            <view>1</view>
+        </scroll-view>
+        <!-- 右侧内容 -->
+        <scroll-view class="right_content">
+        </scroll-view>
+    </view>
+</view>

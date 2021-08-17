@@ -1,5 +1,33 @@
-/**index.wxss**/
-view,text{
-  /*使用主题颜色*/
-  color:var(--themeColer);
+.index_swiper swiper {
+  width: 750rpx;
+  height: 340rpx;
+}
+.index_swiper swiper image {
+  width: 100%;
+}
+.index_cates {
+  display: flex;
+}
+.index_cates navigator {
+  padding: 20rpx;
+  flex: 1;
+}
+.index_cates navigator image {
+  width: 100%;
+}
+.index_floor .floor_group .floor_title image {
+  width: 100%;
+}
+.index_floor .floor_group .floor_list navigator {
+  float: left;
+  width: 33.33%;
+  /* 后四个超链接 */
+}
+.index_floor .floor_group .floor_list navigator:nth-last-child(-n+4) image {
+  /* 原图：232*386 */
+  height: 27.72711207vw;
+}
+.index_floor .floor_group .floor_list navigator image {
+  width: 100%;
+  height: 100%;
 }
