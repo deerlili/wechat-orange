@@ -1,0 +1,5 @@
+/**index.wxss**/
+view,text{
+  /*使用主题颜色*/
+  color: var(--themeColor);
+}

@@ -1,0 +1,6 @@
+<!--pages/cart/index.wxml-->
+<view>
+  <text>pages/cart/index.wxml</text>
+  <text class="iconfont icon-yonghu"></text>
+</view>
+
