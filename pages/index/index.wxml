@@ -1,4 +1,2 @@
 <!--index.wxml-->
-<view class="container">
-    <text class="iconfont icon-yonghu">qqqq</text>
-</view>
+<text class="iconfont icon-yonghu">pages/feedback/index.wxml</text>
