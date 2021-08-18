@@ -32,7 +32,7 @@ Page({
 
   // 获取轮播图数据
   getSwiperList(){
-    request({url:"https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata"})
+    request({url:"/home/swiperdata"})
     .then(res=>{
       this.setData({
         swiperList:res.data.message
