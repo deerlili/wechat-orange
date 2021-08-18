@@ -42,7 +42,7 @@
                 wx:for-item="item2"
                 wx:for-index="index2"
                 wx:key="name">
-                <image mode="{{index2===0?'widthFix':'scaleFill'}}" src="{{item2.image_src}}"></image> 
+                <image mode="{{index2===0?'widthFix':'scaleToFill'}}" src="{{item2.image_src}}"></image> 
                 </navigator>
             </view>
             
