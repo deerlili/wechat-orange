@@ -1,23 +1,30 @@
 {
-    "condition": {
-        "plugin": {
-            "list": []
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "分类页面",
+          "pathName": "pages/category/index",
+          "query": "",
+          "scene": null
         },
-        "game": {
-            "list": []
-        },
-        "gamePlugin": {
-            "list": []
-        },
-        "miniprogram": {
-            "list": [
-                {
-                    "name": "分类页面",
-                    "pathName": "pages/category/index",
-                    "query": "",
-                    "scene": null
-                }
-            ]
+        {
+          "name": "pages/category/index",
+          "pathName": "pages/category/index",
+          "query": "",
+          "scene": null
         }
+      ]
     }
+  }
 }

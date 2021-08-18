@@ -1,0 +1,22 @@
+/* pages/category/index.wxss */
+page{
+    height: 100%;
+}
+.cates{
+    height: 100%;
+    .cates_container{
+        /* 100vh 全屏高度，90rpx搜索框的高度*/
+        height: ~'calc( 100vh - 90rpx )';
+        .left_menu{
+            /* 子项 高度 100% flex*/
+            flex: 2;
+            background-color: yellowgreen;
+        }
+        .right_content{
+            /* 子项 高度 100% flex*/
+            flex: 5;
+            background-color: yellow;
+
+        }
+    }
+}
