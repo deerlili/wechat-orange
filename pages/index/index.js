@@ -24,6 +24,8 @@ Page({
     //     })
     //   }
     // })
+
+    // 这三行同时发送，谁先谁后回来，没有强制要求
     this.getSwiperList();
     this.getCatesList();
     this.getFloorList();

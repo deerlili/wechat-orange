@@ -1,5 +1,6 @@
 // pages/category/index.js
 import { request } from "../../request/index.js"
+import  regeneratorRuntime  from "../../lib/runtime/runtime.js"
 
 Page({
   data: {
@@ -13,7 +14,7 @@ Page({
     scrollTop: 0
   },
   // 接口返回数据
-  categoryList: [],
+  Cates: [],
 
   /**
    * 生命周期函数--监听页面加载
@@ -42,17 +43,16 @@ Page({
       this.getCates();
     }else{
       // 有旧数据，定义过期时间 10s 改为 5分钟
-      if(Date.now()-Cates.time>10000){
+      if(Date.now()-Cates.time>600000){
         // 重新发送请求
         this.getCates();
       }else{
         // 使用旧数据
         this.Cates = Cates.data
-
         // 构造 左侧菜单数据
-        let leftMenuList = this.categoryList.map(v => v.cat_name);
+        let leftMenuList = this.Cates.map(v => v.cat_name);
         // 构造 右侧商品数据
-        let rightContent = this.categoryList[0].children;
+        let rightContent = this.Cates[0].children;
         this.setData({
           leftMenuList,
           rightContent
@@ -61,25 +61,40 @@ Page({
     }
   },
 
-  // 获取 分类数据
-  getCates(){
-    request({url: '/categories'})
-    .then(res=>{   
-
-      // 把接口的数据存入到本地存储中
-      wx.setStorageSync('cates', {time:Date.now(),data:this.Cates})
-
-      this.categoryList = res.data.message;
-      // 构造 左侧菜单数据
-      let leftMenuList = this.categoryList.map(v => v.cat_name);
-      // 构造 右侧商品数据
-      let rightContent = this.categoryList[0].children;
-      this.setData({
-        leftMenuList,
-        rightContent
-      })
+  // 同步
+  async getCates(){
+    // 1.使用es7的async await来发送异步请求
+    const res = await request({url: '/categories'})
+    this.Cates = res.data.message;
+    // 把接口的数据存入到本地存储中
+    wx.setStorageSync('cates', {time:Date.now(),data:this.Cates})
+    // 构造 左侧菜单数据
+    let leftMenuList = this.Cates.map(v => v.cat_name);
+    // 构造 右侧商品数据
+    let rightContent = this.Cates[0].children;
+    this.setData({
+      leftMenuList,
+      rightContent
     })
   },
+
+  // 获取 分类数据
+  // getCates(){
+  //   request({url: '/categories'})
+  //   .then(res=>{   
+  //     this.Cates = res.data.message;
+  //     // 把接口的数据存入到本地存储中
+  //     wx.setStorageSync('cates', {time:Date.now(),data:this.Cates})
+  //     // 构造 左侧菜单数据
+  //     let leftMenuList = this.Cates.map(v => v.cat_name);
+  //     // 构造 右侧商品数据
+  //     let rightContent = this.Cates[0].children;
+  //     this.setData({
+  //       leftMenuList,
+  //       rightContent
+  //     })
+  //   })
+  // },
 
   // 左侧菜单点击事件
   handleItemTap(e){
@@ -90,7 +105,7 @@ Page({
      * 修改点击后颜色改变
      */
     const {index} = e.currentTarget.dataset;
-    let rightContent = this.categoryList[index].children;
+    let rightContent = this.Cates[index].children;
     this.setData({
       currentIndex:index, // 修改点击后颜色改变
       rightContent,   // 点击后的内容
