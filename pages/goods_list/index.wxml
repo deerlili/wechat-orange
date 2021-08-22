@@ -1,7 +1,30 @@
 <!--pages/goods_list/index.wxml-->
 <view class="cates">
     <search></search>
-    <Tabs tabs="{{tabs}}"></Tabs>
-        
+    <!-- 监听自定义事件 -->
+    <Tabs tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange">
+        <block wx:if="{{tabs[0].isActive}}">
+            <view class="first_tab">
+                <navigator class="good_item" 
+                wx:for="{{goodsList}}"
+                wx:key="goods_id"
+                url="/pages/goods_detail/index?goods_id={{item.goods_id}}">
+                <!-- 左侧 图片容器 -->
+                <view class="goods_img_wrap">
+                    <!-- {{item.goods_small_logo?item.goods_small_logo''}} 如果图片存在旧不适用自己如果不存在旧使用后面这张图片 -->
+                    <image mode="widthFix" src="{{item.goods_small_logo?item.goods_small_logo:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.puchedu.cn%2Fuploads%2F3%2F26%2F3842451547%2F2424301025.jpg&refer=http%3A%2F%2Fimg.puchedu.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1632134157&t=1684289fa38578a55c3043a12018a08d'}}">
+                    </image>
+                </view>
+                <!-- 右侧 商品容器 -->
+                <view class="goods_info_warp">
+                    <view class="goods_name">{{item.goods_name}}</view>
+                    <view class="goods_price">￥{{item.goods_price}}</view>
+                </view>
+                </navigator>
+            </view>
+        </block>
+        <block wx:elif="{{tabs[1].isActive}}">2</block>
+        <block wx:elif="{{tabs[2].isActive}}">3</block>
+    </Tabs>    
 </view>
       
