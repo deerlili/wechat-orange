@@ -22,8 +22,16 @@ Page({
   // 获取数据
   async getGoodsDetail(goods_id) {
     const res = await request({url:"/goods/detail",data:{goods_id}});
+    let goodsObj = res.data.message;
     this.setData({
-      goodsObj: res.data.message
+      // goodsObj: res.data.message
+      goodsObj: {
+        goods_name: goodsObj.goods_name,
+        goods_price: goodsObj.goods_price,
+        // iphone部分手机不能识别webp图片格式
+        goods_introduce: goodsObj.goods_introduce,
+        pics: goodsObj.pics
+      }
     })
   },
 
