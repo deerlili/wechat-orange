@@ -1,4 +1,7 @@
 /* pages/goods_detail/index.wxss */
+page {
+    padding-bottom: 90rpx;
+}
 .detail_swiper{
     swiper{
         height: 70vw;
@@ -53,4 +56,56 @@
         font-weight: 600;        
     }
     .goods_info_content{}
+}
+
+.btm_tool{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 90rpx;
+    background-color: #fff;
+    display: flex;
+    .tool_item{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 24rpx;
+
+
+        // 按钮相对定位 
+        position: relative;
+        button{
+            position: absolute; // 绝对定位
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0; // 透明度为0
+        }
+    }
+    .btn_cart{
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffa500;
+        color: #fff;
+        font-size: 30rpx;
+        font-weight: 600;
+    }
+    .btn_buy{
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #eb4450;
+        color: #fff;
+        font-size: 30rpx;
+        font-weight: 600;
+    }
 }
