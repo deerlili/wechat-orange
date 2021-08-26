@@ -46,6 +46,7 @@ page {
   font-weight: 600;
 }
 .btm_tool {
+  border-top: 1rpx solid #ccc;
   position: fixed;
   left: 0;
   bottom: 0;

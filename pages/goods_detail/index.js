@@ -2,7 +2,21 @@
 /**
  * 点击轮播图 预览大图
  *    1 给轮播图绑定点击事件
- *    2 调用小程序的api previewImage  
+ *    2 调用小程序的api previewImage
+ * 底部工具栏
+ *    客服
+ *    分享
+ *    购物车
+ *    加入购物车
+ *      绑定点击事件
+ *      获取缓存中的购物车数据（数组格式）
+ *      先判断当前是否已经存在购物车
+ *        已经存在，修改商品数据，购物车商品数量++
+ *          重新把购物车数组填充到缓存中
+ *        不存在购物车里面，直接购物车数组添加新元素，带上购买数量熟悉num
+ *          重新把购物车数组填充到缓存中
+ *      弹出提示
+ *    立即购买 
  */
 import { request } from "../../request/index.js"
 import  regeneratorRuntime  from "../../lib/runtime/runtime.js"
@@ -108,6 +122,31 @@ Page({
       current, // 当前显示图片的http链接
       urls // 需要预览的图片http链接列表
     })
+  },
+  /**
+   * 加入购物车
+   */
+  handleCartAdd(e) {
+    // 1 获取缓存中的购物车数组
+    let cart = wx.getStorageSync('cart')||[]; // 第一次获取是空字符串，转换成数组
+    // 2 判断商品对象是否存在购物车数组中
+    let index = cart.findIndex(v => v.goods_id===this.goodsInfo.goods_id);
+    if (index === -1) {
+      // 3 不存在，第一次添加
+      this.goodsInfo.num = 1;
+      cart.push(this.goodsInfo);
+    } else {
+      // 4 已经存在购物车数据，执行num++
+      cart[index].num++; 
+    }
+    // 5 把购物车数据重新添加回缓存中
+    wx.setStorageSync('cart', cart);
+    // 6 弹出提示
+    wx.showToast({
+      title: '加入成功',
+      icon: 'success',
+      mask: true // 防止用户疯狂点击按钮，事件持续1.5s
+    });
   }
 
 })
