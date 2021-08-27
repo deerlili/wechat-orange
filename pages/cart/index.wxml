@@ -1,8 +1,51 @@
 <!--pages/cart/index.wxml-->
 <!-- 收货地址 -->
 <view class="receive_address_row">
-    <view class="address_btn">
+    <!-- 当收获地址不存在时按钮现象 对象或空对象bool类型也是true-->
+    <view class="address_btn" wx:if="{{!address.userName}}">
         <button bindtap="handleChooseAddress" type="primary" plain >获取收货地址 </button>  
+    </view>
+    <!-- 当收获地址存在时,显示地址信息 -->
+    <view wx:else class="user_info_row">
+        <view class="user_info">
+            <view>收货人：{{address.userName}}
+                <text class="user_phone">联系电话：{{address.telNumber}}</text>
+            </view>
+            <view>收货地址：{{address.all}}</view>
+            <!-- <view>收货地址：{{address.provinceName+address.cityName+address.countyName+address.detailInfo}}</view> -->
+        </view>
+    </view>
+</view>
+
+<!-- 购物车内容 -->
+<view class="cart_content">
+    <view class="cart_title">购物车</view>
+    <view class="cart_main">
+        <view class="cart_item">
+            <!-- 复选框 -->
+            <view class="cart_chk_wrap">
+                <checkbox-group bindchange="">
+                    <checkbox>
+                    </checkbox>
+                </checkbox-group>
+            </view>
+            <!-- 商品图片 -->
+            <navigator class="cart_image_wrap">
+                <image src="https://api-hmugo-web.itheima.net/full/137925acb7e88a5dd88c765ad2b1dd2d1e44366a.jpg" mode="widthFix"></image>
+            </navigator>
+            <!-- 商品信息 -->
+            <view class="cart_info_wrap">
+                <view class="goods_name">称其为丰富ADC额为房地产的擦的父亲仍不 人把把是大V 发SV热是船是费全额浮球阀大V上档次部署 </view>
+                <view class="goods_price_wrap">
+                    <view class="goods_price">￥999</view>
+                    <view class="cart_num_tool">
+                        <view class="num_edit">-</view>
+                        <view class="goods_num">10</view>
+                        <view class="num_edit">+</view>
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
 </view>
 

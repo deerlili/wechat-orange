@@ -11,14 +11,35 @@
  *          scope值为undefined 直接调用获取收货地址
  *        3 假设用户点击获取收货地址提示框 取消
  *          scope值为false
- *          让用户自己打开授权设置页面，重新给与地址权限，获取地址
+ *          让用户自己打开授权设置页面,重新给与地址权限,获取地址 wx.openSetting
+ *        4 把获取到的地址放入缓存中
+ * 2 页面加载完毕
+ *    0 onLoad onShow-由于购物车页面频繁的被打开和隐藏，每次打开都从新做一个初始化
+ *    1 获取本地存储中的地址数据
+ *    2 把数据设置给data中的一个变量
+ * 
 */
+
+import { getSetting,chooseAddress,openSetting } from "../../utils/asyncWx.js"
+import regeneratorRuntime from "../../lib/runtime/runtime.js"
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
+    address: []
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    // 1 获取本地存储中的地址数据
+    const address = wx.getStorageSync('address');
+    address.all = address.provinceName+address.cityName+address.countyName+address.detailInfo;
+    // 2 给data赋值
+    this.setData({
+      address
+    })
 
   },
 
@@ -45,11 +66,54 @@ Page({
   //       console.log(result)
   //     }
   //   });
-  // }
+  // },
 
-  // 老本版
-  handleChooseAddress () {
-      
+  // handleChooseAddress () {
+  //    // 1.获取权限状态
+  //    wx.getSetting({
+  //      complete: (result1) => {
+  //        // 2.获取权限状态,只要发现属性名很怪异,都要用[]来获取
+  //        const scopeAddress = result1.authSetting["scope.address"];
+  //        if (scopeAddress === true || scopeAddress===undefined) {
+  //          wx.chooseAddress({
+  //            complete: (res1) => {
+  //             console.log(res1);
+  //            }
+  //          })
+  //        } else {
+  //         // 3.用户曾经拒绝过授予权限,诱导用户打开
+  //         wx.openSetting({
+  //           complete: (result2) => {
+  //             // 4.调用收获地址代码
+  //             wx.chooseAddress({
+  //               complete: (res2) => {
+  //                console.log(res2);
+  //               }
+  //             })
+  //           }
+  //         })
+  //        }
+  //      }
+  //    })
+  // }
+  
+  async handleChooseAddress () {
+    try {
+      // 1.获取权限状态
+     const res1 = await getSetting();
+     // 2.获取权限状态,只要发现属性名很怪异,都要用[]来获取
+     const scopeAddress = res1.authSetting["scope.address"];
+     if (scopeAddress === false) {
+        // 3.用户曾经拒绝过授予权限,诱导用户打开
+        await openSetting();
+     }
+     // 4.调用收获地址代码
+     const address = await chooseAddress();
+     // 5.数据存入缓存中
+     wx.setStorageSync('address', address);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 })
