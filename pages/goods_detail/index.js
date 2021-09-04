@@ -134,6 +134,8 @@ Page({
     if (index === -1) {
       // 3 不存在，第一次添加
       this.goodsInfo.num = 1;
+      // 商品选中状态
+      this.goodsInfo.checked = true;
       cart.push(this.goodsInfo);
     } else {
       // 4 已经存在购物车数据，执行num++

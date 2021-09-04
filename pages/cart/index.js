@@ -17,7 +17,15 @@
  *    0 onLoad onShow-由于购物车页面频繁的被打开和隐藏，每次打开都从新做一个初始化
  *    1 获取本地存储中的地址数据
  *    2 把数据设置给data中的一个变量
- * 
+ * 3 onShow
+ *    0 回到了商品详情页第一次添加商品的时候添加属性
+ *      1 num = 1;
+ *      2 checked = true;
+ *    1 获取缓存中的购物车数组
+ *    2 把购物车数据填充到data中
+ * 4 全选的实现 数据展示
+ *    1 onShow 里面获取缓存中的购物车数组
+ *    2 购物车中的商品数据 所有商品都被选中 checked = true 全选就被选中
 */
 
 import { getSetting,chooseAddress,openSetting } from "../../utils/asyncWx.js"
@@ -26,7 +34,11 @@ import regeneratorRuntime from "../../lib/runtime/runtime.js"
 Page({
 
   data: {
-    address: []
+    address: {},
+    cart: [],
+    allChecked: true,
+    totalPrice: 0,
+    totalNum: 0
   },
 
   /**
@@ -36,9 +48,12 @@ Page({
     // 1 获取本地存储中的地址数据
     const address = wx.getStorageSync('address');
     address.all = address.provinceName+address.cityName+address.countyName+address.detailInfo;
+    // 1 获取缓存中的购物车数据
+    const cart = wx.getStorageSync('cart')||[];
     // 2 给data赋值
     this.setData({
-      address
+      address,
+      cart
     })
 
   },
